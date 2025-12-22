@@ -51,13 +51,37 @@ export const funIcebreakerQuestions: PredefinedQuestion[] = [
   },
   {
     id: "fun_9",
-    question_text: "What is the most unusual snack you’ve eaten during a coding session?",
-    question_type: "word_cloud",
-    options: []
+    question_text: "What's your favorite pizza topping?",
+    question_type: "multiple_choice",
+    options: ["Pepperoni", "Mushrooms", "Pineapple (yes!)", "Cheese only"]
   },
   {
     id: "fun_10",
-    question_text: "If your personality were a programming error, which one? (SyntaxError, KeyError, TimeoutError, etc.)",
+    question_text: "If you could have any superpower, what would it be?",
+    question_type: "multiple_choice",
+    options: ["Flying", "Invisibility", "Time travel", "Super strength"]
+  },
+  {
+    id: "fun_11",
+    question_text: "Coffee or tea?",
+    question_type: "multiple_choice",
+    options: ["Coffee all the way", "Tea please", "Both!", "Neither"]
+  },
+  {
+    id: "fun_12",
+    question_text: "Dogs or cats?",
+    question_type: "multiple_choice",
+    options: ["Dogs!", "Cats!", "Both!", "Neither"]
+  },
+  {
+    id: "fun_13",
+    question_text: "What's your favorite season?",
+    question_type: "multiple_choice",
+    options: ["Spring", "Summer", "Fall", "Winter"]
+  },
+  {
+    id: "fun_14",
+    question_text: "Describe your mood right now in 3 words",
     question_type: "word_cloud",
     options: []
   }

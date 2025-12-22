@@ -24,13 +24,11 @@ const AdminView = ({ roomId, roomCode }: AdminViewProps) => {
   const [timerSeconds, setTimerSeconds] = useState<number>(20);
   const [hasCorrectAnswer, setHasCorrectAnswer] = useState<boolean>(false);
 
-  // Build categories from imported question arrays
-  const categories = Object.entries(questionModules)
-    .filter(([key, value]) => Array.isArray(value))
-    .map(([key, value]) => ({
-      name: key.replace(/Questions$/, '').replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase()).trim(),
-      questions: value as PredefinedQuestion[],
-    }));
+  // Build categories from ordered imports
+  const categories = questionModules.orderedCategories.map(item => ({
+    name: item.key.replace(/Questions$/, '').replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase()).trim(),
+    questions: item.value as PredefinedQuestion[],
+  }));
 
   useEffect(() => {
     loadQuestion();
@@ -67,7 +65,7 @@ const AdminView = ({ roomId, roomCode }: AdminViewProps) => {
     try {
       // Always delete all previous votes for this room before starting a new question
       await supabase.from("votes").delete().eq("room_id", roomId);
-            
+
       // Delete old question if present
       if (questionId) {
         await supabase.from("questions").delete().eq("id", questionId);
@@ -94,14 +92,14 @@ const AdminView = ({ roomId, roomCode }: AdminViewProps) => {
       setQuestionId(data.id);
       setCurrentQuestionType(data.question_type);
       setHasCorrectAnswer(!!selectedQuestion.correct_answer);
-      
+
       // Start timer for knowledge check questions
       if (selectedQuestion.correct_answer && timerSeconds > 0) {
         setTimeout(async () => {
           await revealResults();
         }, timerSeconds * 1000);
       }
-      
+
       toast.success("Question started!");
     } catch (error) {
       console.error("Error starting question:", error);
@@ -128,13 +126,13 @@ const AdminView = ({ roomId, roomCode }: AdminViewProps) => {
 
   const revealResults = async () => {
     if (!questionId) return;
-    
+
     try {
       const { error } = await supabase
         .from("questions")
         .update({ results_revealed: true })
         .eq("id", questionId);
-      
+
       if (error) throw error;
       toast.success("Results revealed!");
     } catch (error) {
@@ -185,9 +183,8 @@ const AdminView = ({ roomId, roomCode }: AdminViewProps) => {
                   {getCategoryQuestions().map((question) => (
                     <Card
                       key={question.id}
-                      className={`cursor-pointer transition-all hover:border-primary ${
-                        selectedQuestion?.id === question.id ? "border-primary bg-primary/5" : ""
-                      }`}
+                      className={`cursor-pointer transition-all hover:border-primary ${selectedQuestion?.id === question.id ? "border-primary bg-primary/5" : ""
+                        }`}
                       onClick={() => setSelectedQuestion(question)}
                     >
                       <CardContent className="p-4">
@@ -211,7 +208,7 @@ const AdminView = ({ roomId, roomCode }: AdminViewProps) => {
                     Type: <span className="font-medium">{selectedQuestion.question_type.replace('_', ' ')}</span>
                   </p>
                 </div>
-                
+
                 {selectedQuestion.question_type === 'multiple_choice' && selectedQuestion.options && (
                   <div>
                     <p className="text-xs font-medium mb-1">Options:</p>
@@ -274,9 +271,9 @@ const AdminView = ({ roomId, roomCode }: AdminViewProps) => {
           </CardHeader>
           <CardContent>
             {questionId ? (
-              <VoteResults 
-                roomId={roomId} 
-                questionId={questionId} 
+              <VoteResults
+                roomId={roomId}
+                questionId={questionId}
                 questionType={currentQuestionType as 'multiple_choice' | 'number_scale' | 'word_cloud'}
               />
             ) : (

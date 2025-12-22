@@ -3,44 +3,26 @@ import { PredefinedQuestion } from "./predefinedQuestions";
 export const breakQuestions: PredefinedQuestion[] = [
   {
     id: "break_1",
-    question_text: "Are you ready to continue?",
+    question_text: "Are you ready to jump back in?",
     question_type: "multiple_choice",
-    options: ["Yes, let's go!", "Almost there", "Need a bit more time", "Not yet"]
+    options: ["Born ready!", "Give me 1 more minute", "Still chewing my snack", "Wait, we had a break?"]
   },
   {
     id: "break_2",
-    question_text: "How are you feeling after the break?",
-    question_type: "multiple_choice",
-    options: ["Energized!", "Good", "Neutral", "Still tired"]
+    question_text: "How was your break?",
+    question_type: "word_cloud",
+    options: []
   },
   {
     id: "break_3",
-    question_text: "Rate your readiness to continue (0 = not ready, 10 = fully ready)",
+    question_text: "On a scale of 0-10, how caffeinated are you right now?",
     question_type: "number_scale",
     options: []
   },
   {
     id: "break_4",
-    question_text: "Can we start the next session?",
+    question_text: "What did you do during the break?",
     question_type: "multiple_choice",
-    options: ["Yes!", "Give me 2 minutes", "Give me 5 minutes", "Not ready"]
-  },
-  {
-    id: "break_5",
-    question_text: "How would you describe your current state? (Type 3 words)",
-    question_type: "word_cloud",
-    options: []
-  },
-  {
-    id: "break_6",
-    question_text: "Did you enjoy the break?",
-    question_type: "multiple_choice",
-    options: ["Very much", "Yes", "It was okay", "Not really"]
-  },
-  {
-    id: "break_7",
-    question_text: "Rate how refreshed you feel (0 = exhausted, 10 = completely refreshed)",
-    question_type: "number_scale",
-    options: []
+    options: ["Stretched/Walked", "Checked emails (booo)", "Grabbed food/drink", "Stared into the void"]
   }
 ];
